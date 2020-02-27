@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.gura.step10broadcastreceiver">
+<!--안드로이드 4대 컴포넌트는 반드시 매니페스트에 등록이 되어있어야만 동작이 가능하다.( Activity, Service, Broadcast Receiver, Content Provider-->
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">     <!--MainActivity 앞에 . 은 패키지명이 생략되어 있는것이다. com.gura.step10broadcastreceiver-->
+            <intent-filter>
+                <!--앱 아이콘을 클릭했을 때 요 액티비티가 활성화 되도록 정의하는 것-->
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!-- 방송 수신자 객체 (BroadcastReceiver) 등록하기 -->
+        <receiver android:name=".Myreceiver"
+            android:enabled="true"
+            android:exported="true">    <!--여기까진 기본설정-->
+            <!--이 브로드캐스트를 언제 활성화 시킬지 정하기 위해 어떤 종류의 인텐트를 받을지 정의한다.-->
+            <intent-filter>
+                <action android:name="android.intent.action.AIRPLANE_MODE"/>
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name=".HungryReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name=".HUNGRY"/>    <!--앞에 패키지명은 . 으로 생략-->
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>

@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.gura.step12shardpref.MainActivity">
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/finish"
+        android:orderInCategory="101"
+        android:title="@string/title_activity_finish"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/start"
+        android:orderInCategory="1"
+        android:title="@string/title_activity_start"
+        app:showAsAction="ifRoom"/> <!--ifRoom : 만일 공간이 있으면, always: 항상 보이게, never: 안보이게-->
+        <!--orderInCategory: 정렬. 작을수록 위-->
+
+</menu>
