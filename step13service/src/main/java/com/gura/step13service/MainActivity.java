@@ -27,3 +27,4 @@ public class MainActivity extends AppCompatActivity {
         stopService(intent);
     }
 }   // => 서비스를 시작, 종료시킬 때 Intent 객체가 필요하다!!
+//운영체제가 Service를 생성하는 것이다. Activity가 직접 생성하는 것이 아님. (다음 예제에서 추가 공부)
