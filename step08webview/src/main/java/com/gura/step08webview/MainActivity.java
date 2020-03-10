@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         webView.setWebViewClient(new WebViewClient());
         webView.setWebChromeClient(new MyWebViewClient());
         //url 로딩시키기
-        webView.loadUrl("http://192.168.0.34:8888/project/");         // =>인터넷 자원을 사용하는 것이므로 permission이 필요하다.
+        webView.loadUrl("http://14.63.164.99/");         // =>인터넷 자원을 사용하는 것이므로 permission이 필요하다.
 
     }
 
