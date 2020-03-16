@@ -31,11 +31,11 @@ public class MainActivity extends AppCompatActivity implements Util.RequestListe
         listView.setAdapter(adapter);
         //스프링 웹서버에 요청하기
         String urlAddr="http://192.168.0.34:8888/spring05/android/getnames.do";
-        Util.sendGetRequest(0,urlAddr,null,this);
+        Util.sendGetRequest(0,urlAddr,null,this);   //listener 의 this 는 MainActivity이다. Util의 RequestListener를 구현했으므로.
     }
 
     @Override
-    public void onSuccess(int requestId, Map<String, Object> result) {
+    public void onSuccess(int requestId, Map<String, Object> result) {  // 결과 데이터가 result로 들어온다.
         // ["김구라", "해골", "원숭이"] 형태의 json 문자열이다.
         String data=(String)result.get("data");
         // []형식은 JSONArray 에 대응된다
