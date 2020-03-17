@@ -31,7 +31,7 @@ public class DetailActivity extends AppCompatActivity implements Util.RequestLis
         // 회원 번호를 Map 객체에 담는다.
         Map<String, String> map = new HashMap<>();
         map.put("num", Integer.toString(num));
-        String urlAddr = "http://192.168.0.2:8888/spring05/android/member/detail.do";      //http://192.168.0.34:8888/spring05/android/member/detail.do?num=85 이런식으로 GET 방식으로 파라미터를 전달하고 요청함.
+        String urlAddr = "http://192.168.0.34:8888/spring05/android/member/detail.do";      //http://192.168.0.34:8888/spring05/android/member/detail.do?num=85 이런식으로 GET 방식으로 파라미터를 전달하고 요청함.
         //Util 을 이용해서 요청한다.     요청하면서 num 이라는 키값의 파라미터가 전달된다. 요청하는 파라미터는 모두 String 이므로 Map의 제너릭을 모두 String 으로 지정해줌.
         Util.sendGetRequest(0, urlAddr, map, this);
 
