@@ -27,11 +27,15 @@ public class Main4Activity extends AppCompatActivity implements Util.RequestList
     private List<MemberDto> list;
     //EditText 의 참조값
     EditText inputName, inputAddr;
+    //ListView  (멤버를 추가했을 때 리스트뷰를 강제로 스크롤 시키기 위해 필드로 선언)
+    private ListView listView;
 
     //static final 상수 정의하기
     private static final int REQUEST_LIST = 0;
     private static final int REQUEST_DELETE = 1;
     private static final int REQUEST_INSERT = 2;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +46,7 @@ public class Main4Activity extends AppCompatActivity implements Util.RequestList
         //아답타 객체 생성
         adapter = new MemberAdapter(this, R.layout.listview_cell, list);
         //ListView
-        ListView listView = findViewById(R.id.listView);
+        listView = findViewById(R.id.listView);
         listView.setAdapter(adapter);
 
         //스프링 웹서버에 요청하기
@@ -62,7 +66,7 @@ public class Main4Activity extends AppCompatActivity implements Util.RequestList
 
     @Override
     public void onSuccess(int requestId, Map<String, Object> result) {
-        String urlAddr = "http://192.168.0.34:8888/spring05/android/member/list.do";
+        String urlAddr = "http://192.168.0.34:8888/spring05/android/member/list.do";    //memberList를 다시 불러오도록 하는 url
         // 어떤 요청에 대한 결과인지 switch 문으로 분기한다.
         switch (requestId){
             case REQUEST_LIST:
@@ -96,7 +100,10 @@ public class Main4Activity extends AppCompatActivity implements Util.RequestList
                 //모델에 추가.
                 list.add(dto);
             }
+            //아답타에 모델의 데이터가 바뀌었다고 알려서 listView 가 업데이트 되도록 한다.
             adapter.notifyDataSetChanged();
+            //ListView 를 가장 아래쪽으로 스크롤하기.
+            listView.smoothScrollToPosition(list.size());   //모델의 개수를 전달하면 최근것이 보인다.
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -161,5 +168,10 @@ public class Main4Activity extends AppCompatActivity implements Util.RequestList
         //Util 을 이용해서 Post 방식 요청과 함께 전송한다.
         String urlAddr = "http://192.168.0.34:8888/spring05/android/member/insert.do";
         Util.sendPostRequest(REQUEST_INSERT, urlAddr, map, this);
+        //키보드 숨기기
+        Util.hideKeyboard(this);
+        //포커스 해제
+        Util.releaseFocus(inputName);
+        Util.releaseFocus(inputAddr);
     }
 }
