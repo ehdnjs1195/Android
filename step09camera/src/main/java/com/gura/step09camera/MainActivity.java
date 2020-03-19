@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -208,7 +209,13 @@ public class MainActivity extends AppCompatActivity
     public void onSuccess(int requestId, Map<String, Object> result) {
         new AlertDialog.Builder(this)
                 .setMessage("업로드 되었습니다.")
-                .setNeutralButton("확인", null)
+                .setNeutralButton("확인", new DialogInterface.OnClickListener() {     //확인을 눌렀을 때 액티비티가 destroy되도록 리스너 등록
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //Activity 의 finish() 메소드를 호출해서 액티비티 종료 시키기
+                        finish();
+                    }
+                })
                 .create()
                 .show();
     }
