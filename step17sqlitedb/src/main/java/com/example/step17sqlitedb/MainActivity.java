@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         helper = new DBHelper(this, "MyDB.sqlite", null,  1);
         //version 이 1인 것은. 최초 호출될 때 MyDB.sqlite라는 DB가 한 번 생성되고 그 다음 호출될 때는 더 생성하지 않는다.
         // but, 만약에 어떤 조건하에 버전이 바뀌게 한다면.. version을 2로 올리면 helper에서 onUpgrade() 가 실행된다.
+        // "파일명.확장자" 확장자는 상관 없다.  ex) "MyDB.db"
+
 
         //UI 의 참조값 얻어오기
         inputText = findViewById(R.id.inputText);
@@ -55,8 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         listView.setAdapter(adapter);
 
         todoList = new ArrayList<>();
-        
-        showList();
+
     }
 
     @Override
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //1. 입력한 문자열을 읽어와서
                 String inputMsg = inputText.getText().toString();
                 //2. todo 테이블에 저장한다.
-                SQLiteDatabase db = helper.getWritableDatabase();
+                SQLiteDatabase db = helper.getWritableDatabase();                //helper => mybatis에서의 session역할, JDBC에서의 PreparedStatement 역할
                 Object[] args = {inputMsg}; //바인딩 할 args , 순서대로 들어감.
                 String sql = "INSERT INTO todo (content, regdate)" +
                         " VALUES(?, datetime('now','localtime'))";
@@ -94,14 +95,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 showList();
                 break;
             case R.id.detailBtn:
-                Intent intent = new Intent(this, DetailActivity.class);
                 int index2 = listView.getCheckedItemPosition();
+                if(index2 == -1) {   //선택된 셀이 없을 때
+                    Toast.makeText(this, "삭제할 셀을 선택하세요.", Toast.LENGTH_SHORT).show();
+                    return; //메서드 끝내기
+                }
+                Intent intent = new Intent(this, DetailActivity.class);
+                //클릭한 셀에 해당되는 dto 객체 얻어오기
                 TodoDto dto = todoList.get(index2);
                 intent.putExtra("dto", dto);
                 startActivity(intent);
         }
     }
 
+    // 수정후 변경사항이 다시 뿌려질 수 있도록 showList()를 옮겨온다.
     @Override
     protected void onStart() {
         super.onStart();
@@ -116,10 +123,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         
         SQLiteDatabase db = helper.getReadableDatabase();
         //실행할 SELECT 문
-        String sql = "SELECT num, content, regdate" +
+        /*
+            strftime("날짜형식", 날짜문자)
+                년 : %Y
+                월 : %m
+                일 : %d
+                시 : %H
+                분 : %M
+                초 : %S
+         */
+        String sql = "SELECT num, content, strftime( \"%Y년%m월%d일 %H시:%M분\", regdate)" +
                 " FROM todo" +
                 " ORDER BY num DESC";
-        //SELECT 문 수행하고 결과를 Cursor type 으로 받아오기
+        //SELECT 문 수행하고 결과를 Cursor type 으로 받아오기     JDBC의 ResultSet 역할.
         Cursor result = db.rawQuery(sql, null);
         //반복문 돌면서 Cursor 객체에서 정보 읽어오기
         while(result.moveToNext()){
