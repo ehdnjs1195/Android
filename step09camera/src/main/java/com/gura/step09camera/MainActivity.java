@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity
                 String timeStamp=
                         new SimpleDateFormat("yyyyMMdd_HHmmss")
                                 .format(new Date());
-                String path=getExternalFilesDir(null).getAbsolutePath();    //SDcard의 경로
+                String path=getExternalFilesDir(null).getAbsolutePath();    //SDcard의 경로    => /sdcard/Android/data/com.gura.step09camera/files  => 외부 경로의 저장공간은 permission이 필요하다.
                 photoFile=new File(path+"/"+timeStamp+".jpg");  //파일명에 timeStamp를 찍어서 겹치지 않도록 한다.
                 //절대 경로를 맴버필드에 저장한다.
                 absolutePath=photoFile.getAbsolutePath();

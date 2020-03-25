@@ -11,7 +11,7 @@
     Package name:
     11:CC:5F:36:54:E8:DB:33:FA:12:5F:54:35:01:03:5C:8B:A0:DE:DD
 
-    SHA-1 certificate fingerprint:  => 각 컴퓨터 마다 주어지는 인증 지문
+    SHA-1 certificate fingerprint:                      => 각 컴퓨터 마다 주어지는 인증 지문, 같은 키를가지고 다른 컴퓨터에서는 사용할 수 없다. 유일하게 컴퓨터마다 주어지는 fingerprint 이기 때문에.  => 키를 새로 발급받아 사용한다.
     11:CC:5F:36:54:E8:DB:33:FA:12:5F:54:35:01:03:5C:8B:A0:DE:DD
 
     Alternatively, follow the directions here:

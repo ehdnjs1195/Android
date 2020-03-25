@@ -22,10 +22,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        // activity_my.xml 에 있는 SupportMapFragment 객체의 참조값 얻어내기
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);        // 구글맵과 관련된 프레그먼트를 가져와서
-        mapFragment.getMapAsync(this);  //리스너를 등록한다.
+                .findFragmentById(R.id.map);        // Activity의 메서드중에 getSupportFragmentManager()를 통해 프레그먼트 관리자 객체를 리턴받고           /findFragmentById의 메서드가 바로 있지 않은 이유는 프레그먼트라는 개념이 안드로이드 개발 이후에 새롭게 만들어 졌기때문에 추가를 해야 해서 그렇다.
+                                                    // 구글맵과 관련된 프레그먼트를 가져와서     / 프레그먼트의 참조값을 얻어올 때 주의. (프레그먼트는 뷰가 아니므로)
+                                                    // 프레그먼트를 가져올 때 Fragment인 부모 타입으로 리턴된다. 따라서 모든 기능을 다 사용하려면 SupportMapFragment로 캐스팅을 한다.
+
+        //지도가 동작할 준비가 완료되면 사용될 리스너 객체 등록하기
+        mapFragment.getMapAsync(this);      //지도를 동작하려면 시간이 좀 걸릴 수 있다. 따라서 this로 onMapReadyCallback을 전달하고 준비를 한다. 그리고 준비가 되면 onMapReady() 메서드를 호출한다.
 
         Button moveBtn = findViewById(R.id.moveBtn);
         moveBtn.setOnClickListener(this);
