@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.gura.step19locationinfo">
+    <!-- 위치 정보를 사용하겠다는 퍼미션 (GPS 혹은 Network)-->
+    <!-- GPS 가 켜져있으면 GPS를 연결, 아니면 Network를 이용. Network는 기지국을 이용해서 대략적인 위치를 가져옴.-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
         android:allowBackup="true"
