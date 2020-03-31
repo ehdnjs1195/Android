@@ -42,7 +42,7 @@ class Car(name: String) {
     }
 }
 
-//var 을 생성자의 인자에 선언하면 필드도 만들어 주고 전달된 값을 필드에 저장도 해준다.
+//var 을 생성자의 인자에 선언하면 필드도 만들어 주고 전달된 값을 필드에 저장도 해준다.    => init 에서 초기화 하는 과정이 필요 없어진다!! 매우 편리.
 //var 로 선언하면 getter, setter 가 모두 가능
 class YourCar(var name: String) {    //var을 선언해주면 필드(property)를 선언하는 것과 같다.
     //val로 선언을 하면 참조는 가능하지만 수정은 할 수 없다. getter메소드는 사용할 수 있지만 setter는 사용하지 못한다는 뜻
@@ -57,7 +57,7 @@ class OurCar(){//primary 생성자
     //property 정의
     var name: String? = null
     //두번째 생성자 정의하기
-    constructor(name: String) : this() { // primary 생성자를 호출해야 한다.
+    constructor(name: String) : this() { // primary 생성자를 호출해야 한다.   this() 가 OurCar() 클래스를 호출하는 것과 같다.
         //property(필드)에 값 대입하기
         this.name = name
     }
